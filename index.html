@@ -1,68 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yoann Casals – Film Director & Motion Designer</title>
-  <meta name="description" content="Portfolio of Yoann Casals – Film Director & Motion Designer.">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yoann Casals — Film Director & Motion Designer</title>
+  <meta name="description" content="Portfolio — Yoann Casals. Motion design, direction and film." />
+
+  <!-- Fonts (serif headline + neutral sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
-    body { background-color: #0a0a0a; color: #f5f5f5; }
-    .thumb img { transition: transform 0.4s ease, opacity 0.4s ease; }
-    .thumb:hover img { transform: scale(1.05); opacity: 0.8; }
+    :root{
+      --bg:#070707;
+      --panel:#0f0f0f;
+      --muted:#9a9a9a;
+      --accent:#cdbb93;
+      --white:#f6f6f5;
+      --radius:14px;
+    }
+
+    /* Base */
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    *{box-sizing:border-box}
+    a{color:inherit;text-decoration:none}
+
+    /* Header */
+    header.site {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:34px 48px;
+      position:sticky;
+      top:0;
+      backdrop-filter: blur(6px);
+      z-index:30;
+    }
+    .brand {
+      display:flex;
+      align-items:baseline;
+      gap:16px;
+    }
+    .brand .name {
+      font-family:"Playfair Display", serif;
+      font-size:34px;
+      letter-spacing:0.02em;
+      font-weight:400;
+    }
+    .brand .role {
+      color:var(--muted);
+      font-size:13px;
+      margin-top:6px;
+      font-weight:300;
+    }
+    nav .contact {
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:10px 14px;
+      border-radius:10px;
+    }
+
+    /* Page container */
+    main.container{max-width:1200px;margin:56px auto;padding:0 28px;}
+
+    /* Gallery grid — staggered, large cards */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:28px;
+      align-items:start;
+    }
+    @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr; gap:18px;} .brand .name{font-size:26px} }
+
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      overflow:hidden;
+      height:320px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15));
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      cursor:pointer;
+      display:block;
+      isolation:isolate;
+    }
+    .card.small{ height:200px; }
+    .media{
+      position:absolute; inset:0;
+      background-size:cover;
+      background-position:center;
+      transform-origin:center;
+      transition: transform 0.6s cubic-bezier(.2,.9,.2,1), filter .35s;
+    }
+    .card:hover .media{ transform: scale(1.06) translateY(-6px); filter:brightness(.92) }
+
+    /* subtle film grain overlay */
+    .card::after{
+      content:"";
+      position:absolute; inset:0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
+      mix-blend-mode:overlay;
+      pointer-events:none;
+    }
+
+    .meta{
+      position:absolute;
+      left:22px;
+      bottom:20px;
+      z-index:3;
+      color:var(--white);
+      font-weight:600;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,0.45));
+      padding:10px 14px;
+      border-radius:9px;
+      backdrop-filter: blur(3px);
+    }
+    .meta .sub{ font-size:12px; color:var(--muted); text-transform:none; font-weight:400; letter-spacing:0; margin-top:4px; }
+
+    /* keyboard-focus for accessibility */
+    .card:focus{outline:3px solid rgba(205,187,147,0.12); outline-offset:4px}
+
+    /* Modal player */
+    .modal{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(3,3,3,0.92);
+      z-index:80; padding:26px;
+      opacity:0; pointer-events:none; transition:opacity .2s ease;
+    }
+    .modal.open{ opacity:1; pointer-events:auto; }
+    .player{
+      width:100%; max-width:1200px; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#000;
+      box-shadow: 0 30px 120px rgba(0,0,0,0.7);
+    }
+    .close-btn{
+      position:fixed; right:28px; top:22px; z-index:90; background:transparent; border:0; color:var(--white);
+      font-size:24px; cursor:pointer;
+    }
+
+    /* Footer */
+    footer{ text-align:center; color:var(--muted); padding:42px 20px; font-size:13px; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .media, .card:hover .media{ transition:none; transform:none !important; }
+    }
   </style>
 </head>
-<body class="font-sans antialiased">
+<body>
 
-  <!-- Header -->
-  <header class="flex flex-col items-center py-12 text-center">
-    <h1 class="text-4xl md:text-5xl font-light tracking-wide">Yoann Casals</h1>
-    <p class="text-gray-400 mt-2">Film Director & Motion Designer</p>
+  <header class="site" role="banner">
+    <div class="brand">
+      <div class="name">Yoann Casals</div>
+      <div class="role">Film Director & Motion Designer</div>
+    </div>
+
+    <nav role="navigation" aria-label="main nav">
+      <a class="contact" id="contactLink" href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <!-- Gallery -->
-  <main class="px-4 md:px-12 lg:px-24 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-    <!-- Replace each block below with your own thumbnail & link -->
-    <div class="thumb cursor-pointer" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
-      <img src="thumbs/project1.gif" alt="Project 1" class="w-full rounded-2xl shadow-lg">
+  <main class="container" role="main">
+    <!-- Gallery: replace thumbs/* with your images/gifs and data-video with your embed URLs -->
+    <div class="grid" id="gallery">
+
+      <a class="card" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project One">
+        <div class="media" style="background-image: url('thumbs/project1.jpg')"></div>
+        <div class="meta">
+          <span>Project One</span>
+          <span class="sub">2023 · short film</span>
+        </div>
+      </a>
+
+      <a class="card" href="#" tabindex="0" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-provider="youtube" aria-label="Open Project — Project Two">
+        <div class="media" style="background-image: url('thumbs/project2.gif')"></div>
+        <div class="meta">
+          <span>Project Two</span>
+          <span class="sub">2024 · commercial</span>
+        </div>
+      </a>
+
+      <a class="card small" href="#" tabindex="0" data-video="https://player.vimeo.com/video/148751763" data-provider="vimeo" aria-label="Open Project — Project Three">
+        <div class="media" style="background-image: url('thumbs/project3.jpg')"></div>
+        <div class="meta">
+          <span>Project Three</span>
+          <span class="sub">2022 · motion</span>
+        </div>
+      </a>
+
+      <a class="card" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Four">
+        <div class="media" style="background-image: url('thumbs/project4.gif')"></div>
+        <div class="meta">
+          <span>Project Four</span>
+          <span class="sub">2021 · music video</span>
+        </div>
+      </a>
+
+      <a class="card" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project Five">
+        <div class="media" style="background-image: url('thumbs/project5.jpg')"></div>
+        <div class="meta">
+          <span>Project Five</span>
+          <span class="sub">2020 · experimental</span>
+        </div>
+      </a>
+
+      <a class="card small" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Six">
+        <div class="media" style="background-image: url('thumbs/project6.jpg')"></div>
+        <div class="meta">
+          <span>Project Six</span>
+          <span class="sub">2019 · branding</span>
+        </div>
+      </a>
+
     </div>
-    <div class="thumb cursor-pointer" data-video="https://player.vimeo.com/video/76979871">
-      <img src="thumbs/project2.gif" alt="Project 2" class="w-full rounded-2xl shadow-lg">
-    </div>
-    <div class="thumb cursor-pointer" data-video="https://www.youtube.com/embed/ScMzIvxBSi4">
-      <img src="thumbs/project3.gif" alt="Project 3" class="w-full rounded-2xl shadow-lg">
-    </div>
-    <!-- Add more thumbnails as needed -->
   </main>
 
-  <!-- Modal -->
-  <div id="videoModal" class="hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-    <button id="closeModal" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
-    <div class="w-full max-w-5xl aspect-video">
-      <iframe id="videoFrame" class="w-full h-full rounded-2xl" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  <!-- Modal player -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-label="Video player">
+    <button class="close-btn" id="closeBtn" aria-label="Close player">✕</button>
+    <div class="player" id="playerWrap">
+      <iframe id="playerFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Video player"></iframe>
     </div>
   </div>
 
+  <footer id="contact">
+    <div>© <strong>Yoann Casals</strong> — <span id="year"></span></div>
+    <div style="margin-top:8px;color:var(--muted);">email: <a href="mailto:hello@yoanncasals.com" style="color:var(--muted)">hello@yoanncasals.com</a></div>
+  </footer>
+
   <script>
-    const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('videoFrame');
-    document.querySelectorAll('.thumb').forEach(t => {
-      t.addEventListener('click', () => {
-        frame.src = t.dataset.video + '?autoplay=1';
-        modal.classList.remove('hidden');
-      });
+    // Populate year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const iframe = document.getElementById('playerFrame');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // open player (delegated)
+    gallery.addEventListener('click', (ev) => {
+      const card = ev.target.closest('.card');
+      if(!card) return;
+      ev.preventDefault();
+      openVideo(card);
     });
-    document.getElementById('closeModal').addEventListener('click', () => {
-      modal.classList.add('hidden');
-      frame.src = '';
+    // keyboard accessibility (Enter/Space)
+    gallery.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Enter' || ev.key === ' '){
+        const card = ev.target.closest('.card') || ev.target;
+        if(!card || !card.classList.contains('card')) return;
+        ev.preventDefault();
+        openVideo(card);
+      }
+    });
+
+    function openVideo(card){
+      let src = card.getAttribute('data-video') || '';
+      const provider = (card.getAttribute('data-provider') || '').toLowerCase();
+
+      // Normalize YouTube / Vimeo to embed + autoplay
+      if(provider === 'youtube' || src.includes('youtube.com') || src.includes('youtu.be')) {
+        if(src.includes('watch?v=')) src = src.replace('watch?v=', 'embed/');
+        if(src.includes('youtu.be/')) src = src.replace('youtu.be/','www.youtube.com/embed/');
+        src += (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&modestbranding=1';
+      } else if(provider === 'vimeo' || src.includes('vimeo.com')) {
+        if(src.includes('vimeo.com/') && !src.includes('player.vimeo.com')) src = src.replace('vimeo.com/','player.vimeo.com/video/');
+        src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
+      }
+
+      iframe.src = src;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+
+      // trap basic focus: close button
+      closeBtn.focus();
+    }
+
+    function closePlayer(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      // stop playback
+      iframe.src = '';
+    }
+
+    closeBtn.addEventListener('click', closePlayer);
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) closePlayer();
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.classList.contains('open')) closePlayer();
+    });
+
+    // progressive enhancement: ensure images load as backgrounds
+    document.querySelectorAll('.card .media').forEach(m => {
+      const bg = m.style.backgroundImage || '';
+      if(!bg) m.style.backgroundColor = '#111';
     });
   </script>
-
-  <!-- Footer -->
-  <footer class="text-center text-gray-500 py-12 text-sm">
-    © <span id="year"></span> Yoann Casals. All rights reserved.
-  </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
 </body>
 </html>
