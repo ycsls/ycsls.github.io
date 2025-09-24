@@ -6,127 +6,98 @@
   <title>Yoann Casals — Film Director & Motion Designer</title>
   <meta name="description" content="Portfolio — Yoann Casals. Motion design, direction and film." />
 
-  <!-- Fonts (serif headline + neutral sans) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg:#f6f6f5;
-      --panel:#0f0f0f;
       --muted:#9a9a9a;
-      --accent:#cdbb93;
       --white:#070707;
-      --radius:14px;
     }
 
-    /* Base */
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    html,body{
+      margin:0;background:var(--bg);color:var(--white);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    }
     *{box-sizing:border-box}
     a{color:inherit;text-decoration:none}
 
     /* Header */
     header.site {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex;align-items:center;justify-content:space-between;
       padding:34px 48px;
-      position:sticky;
-      top:0;
+      position:sticky;top:0;
       backdrop-filter: blur(6px);
       z-index:30;
     }
-    .brand {
-      display:flex;
-      align-items:baseline;
-      gap:16px;
-    }
+    .brand {display:flex;align-items:baseline;gap:16px;}
     .brand .name {
       font-family:"Zalando Sans Expanded", serif;
-      font-size:34px;
-      letter-spacing:0.02em;
-      font-weight:400;
+      font-size:34px;letter-spacing:0.02em;font-weight:400;
     }
     .brand .role {
-      color:var(--muted);
-      font-size:13px;
-      margin-top:6px;
-      font-weight:300;
+      color:var(--muted);font-size:13px;margin-top:6px;font-weight:300;
     }
     nav .contact {
-      font-size:13px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.04);
-      padding:10px 14px;
-      border-radius:10px;
+      font-size:13px;color:var(--muted);
+      border:1px solid rgba(255,255,255,0.06);
+      padding:10px 14px;border-radius:4px;
     }
 
-    /* Page container */
-    main.container{max-width:1200px;margin:56px auto;padding:0 28px;}
-
-    /* Gallery grid — staggered, large cards */
+    /* Masonry / floating grid */
     .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:28px;
-      align-items:start;
+      column-count: 3;
+      column-gap: 24px;
+      max-width: 1200px;
+      margin:56px auto;
+      padding:0 24px;
     }
-    @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr);} }
-    @media (max-width:640px){ .grid{grid-template-columns:1fr; gap:18px;} .brand .name{font-size:26px} }
+    @media (max-width:1000px){ .grid{column-count:2;} }
+    @media (max-width:640px){ .grid{column-count:1;} }
 
+    /* Cards */
     .card{
-      position:relative;
-      border-radius:var(--radius);
-      overflow:hidden;
-      height:320px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.15));
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      cursor:crosshair;
       display:block;
-      isolation:isolate;
+      position:relative;
+      margin:0 0 24px;
+      background:#111;
+      border-radius:0;
+      box-shadow:0 12px 28px rgba(0,0,0,0.2);
+      overflow:hidden;
+      break-inside: avoid;
+      transition: transform .35s ease, box-shadow .35s ease;
     }
-    .card.small{ height:200px; }
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    }
+
     .media{
-      position:absolute; inset:0;
+      width:100%;
+      height:100%;
       background-size:cover;
       background-position:center;
-      transform-origin:center;
-      transition: transform 0.6s cubic-bezier(.2,.9,.2,1), filter .35s;
-    }
-    .card:hover .media{ transform: scale(1.06) translateY(-6px); filter:brightness(.92) }
-
-    /* subtle film grain overlay */
-    .card::after{
-      content:"";
-      position:absolute; inset:0;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><filter id="n"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
-      mix-blend-mode:overlay;
-      pointer-events:none;
+      display:block;
     }
 
+    /* Varied size helpers */
+    .card.tall   {height:500px;}
+    .card.wide   {height:260px;}
+    .card.small  {height:180px;}
+    .card.big    {height:380px;}
+
+    /* Overlay title */
     .meta{
-      position:absolute;
-      left:22px;
-      bottom:20px;
-      z-index:3;
-      color:var(--white);
-      font-weight:600;
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:0.12em;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      background:linear-gradient(180deg, transparent, rgba(0,0,0,0.45));
-      padding:10px 14px;
-      border-radius:9px;
-      backdrop-filter: blur(3px);
+      position:absolute; left:0; right:0; bottom:0;
+      padding:18px 20px;
+      background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.55) 100%);
+      color:#fff;
     }
-    .meta .sub{ font-size:12px; color:var(--muted); text-transform:none; font-weight:400; letter-spacing:0; margin-top:4px; }
-
-    /* keyboard-focus for accessibility */
-    .card:focus{outline:3px solid rgba(205,187,147,0.12); outline-offset:4px}
+    .meta span:first-child{font-weight:600;font-size:16px;}
+    .meta .sub{font-size:13px;color:var(--muted);}
 
     /* Modal player */
     .modal{
@@ -137,20 +108,20 @@
     }
     .modal.open{ opacity:1; pointer-events:auto; }
     .player{
-      width:100%; max-width:1200px; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#000;
-      box-shadow: 0 30px 120px rgba(0,0,0,0.7);
+      width:100%; max-width:1200px; aspect-ratio:16/9;
+      border-radius:0;
+      overflow:hidden; background:#000;
+      box-shadow:0 24px 80px rgba(0,0,0,0.6);
     }
     .close-btn{
-      position:fixed; right:28px; top:22px; z-index:90; background:transparent; border:0; color:var(--white);
+      position:fixed; right:28px; top:22px;
+      background:transparent; border:0; color:var(--white);
       font-size:24px; cursor:pointer;
     }
 
-    /* Footer */
-    footer{ text-align:center; color:var(--muted); padding:42px 20px; font-size:13px; }
-
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .media, .card:hover .media{ transition:none; transform:none !important; }
+    footer{
+      text-align:center; color:var(--muted);
+      padding:42px 20px; font-size:13px;
     }
   </style>
 </head>
@@ -168,10 +139,9 @@
   </header>
 
   <main class="container" role="main">
-    <!-- Gallery: replace thumbs/* with your images/gifs and data-video with your embed URLs -->
     <div class="grid" id="gallery">
 
-      <a class="card" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project One">
+      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project One">
         <div class="media" style="background-image: url('https://drive.google.com/uc?export=view&id=1Xn0zyL3tbzrEBsuZz5i4WXQ5kpzVpbf5')"></div>
         <div class="meta">
           <span>Test EDB</span>
@@ -179,7 +149,7 @@
         </div>
       </a>
 
-      <a class="card" href="#" tabindex="0" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-provider="youtube" aria-label="Open Project — Project Two">
+      <a class="card tall" href="#" tabindex="0" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-provider="youtube" aria-label="Open Project — Project Two">
         <div class="media" style="background-image: url('thumbs/project2.gif')"></div>
         <div class="meta">
           <span>Project Two</span>
@@ -195,7 +165,7 @@
         </div>
       </a>
 
-      <a class="card" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Four">
+      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Four">
         <div class="media" style="background-image: url('thumbs/project4.gif')"></div>
         <div class="meta">
           <span>Project Four</span>
@@ -203,7 +173,7 @@
         </div>
       </a>
 
-      <a class="card" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project Five">
+      <a class="card wide" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project Five">
         <div class="media" style="background-image: url('thumbs/project5.jpg')"></div>
         <div class="meta">
           <span>Project Five</span>
@@ -211,7 +181,7 @@
         </div>
       </a>
 
-      <a class="card small" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Six">
+      <a class="card tall" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Six">
         <div class="media" style="background-image: url('thumbs/project6.jpg')"></div>
         <div class="meta">
           <span>Project Six</span>
@@ -236,7 +206,6 @@
   </footer>
 
   <script>
-    // Populate year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const gallery = document.getElementById('gallery');
@@ -244,14 +213,12 @@
     const iframe = document.getElementById('playerFrame');
     const closeBtn = document.getElementById('closeBtn');
 
-    // open player (delegated)
     gallery.addEventListener('click', (ev) => {
       const card = ev.target.closest('.card');
       if(!card) return;
       ev.preventDefault();
       openVideo(card);
     });
-    // keyboard accessibility (Enter/Space)
     gallery.addEventListener('keydown', (ev) => {
       if(ev.key === 'Enter' || ev.key === ' '){
         const card = ev.target.closest('.card') || ev.target;
@@ -265,7 +232,6 @@
       let src = card.getAttribute('data-video') || '';
       const provider = (card.getAttribute('data-provider') || '').toLowerCase();
 
-      // Normalize YouTube / Vimeo to embed + autoplay
       if(provider === 'youtube' || src.includes('youtube.com') || src.includes('youtu.be')) {
         if(src.includes('watch?v=')) src = src.replace('watch?v=', 'embed/');
         if(src.includes('youtu.be/')) src = src.replace('youtu.be/','www.youtube.com/embed/');
@@ -278,15 +244,12 @@
       iframe.src = src;
       modal.classList.add('open');
       modal.setAttribute('aria-hidden','false');
-
-      // trap basic focus: close button
       closeBtn.focus();
     }
 
     function closePlayer(){
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden','true');
-      // stop playback
       iframe.src = '';
     }
 
@@ -298,7 +261,6 @@
       if(e.key === 'Escape' && modal.classList.contains('open')) closePlayer();
     });
 
-    // progressive enhancement: ensure images load as backgrounds
     document.querySelectorAll('.card .media').forEach(m => {
       const bg = m.style.backgroundImage || '';
       if(!bg) m.style.backgroundColor = '#111';
