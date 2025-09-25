@@ -97,9 +97,9 @@
       color:#fff;
     }
     .meta span:first-child{font-weight:600;font-size:16px;}
-    .meta .sub{font-size:13px;color:var(--white);}
+    .meta .sub{font-size:13px;color:var(--muted);}
 
-    /* Modal player */
+    /* Modal player + description */
     .modal{
       position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
       background:rgba(3,3,3,0.92);
@@ -107,12 +107,41 @@
       opacity:0; pointer-events:none; transition:opacity .2s ease;
     }
     .modal.open{ opacity:1; pointer-events:auto; }
+
+    /* inner wrapper to switch between column (mobile) and row (desktop) */
+    .modal-inner{
+      width:100%; max-width:1200px;
+      display:flex; flex-direction:column; gap:18px; align-items:center;
+    }
+
     .player{
-      width:100%; max-width:1200px; aspect-ratio:16/9;
+      width:100%;
+      max-width:1200px;
+      aspect-ratio:16/9;
       border-radius:0;
       overflow:hidden; background:#000;
       box-shadow:0 24px 80px rgba(0,0,0,0.6);
+      flex: none;
     }
+
+    .video-desc{
+      max-width:1200px;
+      color:#eee;
+      font-size:15px;
+      line-height:1.5;
+      text-align:center;
+      padding:14px 16px;
+      background:rgba(255,255,255,0.02);
+      border-radius:6px;
+    }
+
+    /* Desktop: place description to the right of the player */
+    @media (min-width:900px){
+      .modal-inner{ flex-direction:row; align-items:flex-start; }
+      .player{ flex:1 1 auto; max-width:calc(100% - 380px); }
+      .video-desc{ flex:0 0 360px; text-align:left; max-height:80vh; overflow:auto; }
+    }
+
     .close-btn{
       position:fixed; right:28px; top:22px;
       background:transparent; border:0; color:var(--white);
@@ -141,7 +170,7 @@
   <main class="container" role="main">
     <div class="grid" id="gallery">
 
-      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" data-description="Podcast sur les experimentations culinaires." aria-label="Open Project — Project One">
+      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" data-description="Épisode court du podcast 'Envie de Braiser' — mix son & montage; une exploration intime autour de la cuisine et du récit." aria-label="Open Project — Project One">
         <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/download.jpeg')"></div>
         <div class="meta">
           <span>Envie de Braiser</span>
@@ -149,7 +178,7 @@
         </div>
       </a>
 
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/930765961" data-provider="vimeo" aria-label="Open Project — Project Two">
+      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/930765961" data-provider="vimeo" data-description="Publicité retail pour ALINEA — film 2025, création de l'habillage produit et motion design adapté au point de vente." aria-label="Open Project — Project Two">
         <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/Alinea-gif.gif')"></div>
         <div class="meta">
           <span>Alinea - Retail 2025</span>
@@ -157,7 +186,7 @@
         </div>
       </a>
 
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/932549652" data-provider="vimeo" aria-label="Open Project — Project Three">
+      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/932549652" data-provider="vimeo" data-description="Campagne de communication pour Vertigeo — identité animée, séquences motion et habillage sonore." aria-label="Open Project — Project Three">
         <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/vertigeo.jpg')"></div>
         <div class="meta">
           <span>Vertigeo</span>
@@ -165,7 +194,7 @@
         </div>
       </a>
 
-      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" aria-label="Open Project — Project Four">
+      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" data-description="Clip musical — direction artistique, découpage image et montage rythmique." aria-label="Open Project — Project Four">
         <div class="media" style="background-image: url('thumbs/project4.gif')"></div>
         <div class="meta">
           <span>Project Four</span>
@@ -173,7 +202,7 @@
         </div>
       </a>
 
-      <a class="card wide" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" aria-label="Open Project — Project Five">
+      <a class="card wide" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" data-description="Projet expérimental — étude visuelle sur textures et temporalité; montage non linéaire et traitement couleur." aria-label="Open Project — Project Five">
         <div class="media" style="background-image: url('thumbs/project5.jpg')"></div>
         <div class="meta">
           <span>Project Five</span>
@@ -181,7 +210,7 @@
         </div>
       </a>
 
-      <a class="card tall" href="#" tabindex="0" data-video="" data-provider="youtube" aria-label="Open Project — Project Six">
+      <a class="card tall" href="#" tabindex="0" data-video="" data-provider="youtube" data-description="Contenu social créé pour SIRHA 2025 — loops et formats courts optimisés réseaux (source vidéo non fournie)." aria-label="Open Project — Project Six">
         <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/LVB-CDM-Reveal.gif')"></div>
         <div class="meta">
           <span>SIRHA 2025</span>
@@ -195,8 +224,13 @@
   <!-- Modal player -->
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-label="Video player">
     <button class="close-btn" id="closeBtn" aria-label="Close player">✕</button>
-    <div class="player" id="playerWrap">
-      <iframe id="playerFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Video player"></iframe>
+
+    <div class="modal-inner">
+      <div class="player" id="playerWrap">
+        <iframe id="playerFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Video player"></iframe>
+      </div>
+
+      <div class="video-desc" id="videoDesc" aria-live="polite"></div>
     </div>
   </div>
 
@@ -212,6 +246,7 @@
     const modal = document.getElementById('modal');
     const iframe = document.getElementById('playerFrame');
     const closeBtn = document.getElementById('closeBtn');
+    const descBox = document.getElementById('videoDesc');
 
     gallery.addEventListener('click', (ev) => {
       const card = ev.target.closest('.card');
@@ -231,7 +266,21 @@
     function openVideo(card){
       let src = card.getAttribute('data-video') || '';
       const provider = (card.getAttribute('data-provider') || '').toLowerCase();
+      const desc = card.getAttribute('data-description') || '';
 
+      // Prepare description
+      descBox.textContent = desc;
+
+      // If no video source, still open modal to show description
+      if(!src){
+        iframe.src = '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden','false');
+        closeBtn.focus();
+        return;
+      }
+
+      // Normalize YouTube / Vimeo to embed + autoplay
       if(provider === 'youtube' || src.includes('youtube.com') || src.includes('youtu.be')) {
         if(src.includes('watch?v=')) src = src.replace('watch?v=', 'embed/');
         if(src.includes('youtu.be/')) src = src.replace('youtu.be/','www.youtube.com/embed/');
@@ -251,6 +300,7 @@
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden','true');
       iframe.src = '';
+      descBox.textContent = '';
     }
 
     closeBtn.addEventListener('click', closePlayer);
