@@ -1,420 +1,528 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yoann Casals — Film Director & Motion Designer</title>
-  <meta name="description" content="Portfolio — Yoann Casals. Motion design, direction and film." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoann Casals — Director / Journalist / Motion Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D0C0A;         /* near-black, warm not neutral */
+    --ink-soft:#171512;
+    --paper:#EDE8DC;       /* warm off-white */
+    --paper-dim:#B9B2A0;   /* muted warm grey, secondary text on dark */
+    --iron:#7C1F16;        /* branding-iron oxblood, used sparingly */
+    --line-on-dark:rgba(237,232,220,0.16);
+    --line-on-dark-strong:rgba(237,232,220,0.32);
+    --line-on-light:rgba(13,12,10,0.16);
+    --line-on-light-strong:rgba(13,12,10,0.34);
+  }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
 
-  <style>
-    :root{
-      --bg:#f6f6f5;
-      --muted:#9a9a9a;
-      --white:#070707;
-    }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Source Serif 4', serif;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
 
-    html,body{
-      margin:0;background:var(--bg);color:var(--white);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    }
-    *{box-sizing:border-box}
-    a{color:inherit;text-decoration:none}
+  ::selection{ background:var(--iron); color:var(--paper); }
+  a{ color:inherit; text-decoration:none; }
 
-    /* Header */
-    header.site {
-      display:flex;align-items:center;justify-content:space-between;
-      padding:34px 48px;
-      position:sticky;top:0;
-      backdrop-filter: blur(6px);
-      z-index:30;
-    }
-    .brand {display:flex;align-items:baseline;gap:16px;}
-    .brand .name {
-      font-family:"Zalando Sans Expanded", serif;
-      font-size:34px;letter-spacing:0.02em;font-weight:400;
-    }
-    .brand .role {
-      color:var(--muted);font-size:13px;margin-top:6px;font-weight:300;
-    }
-    nav .contact {
-      font-size:13px;color:var(--muted);
-      border:1px solid rgba(255,255,255,0.06);
-      padding:10px 14px;border-radius:4px;
-    }
+  .cap{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-weight:500;
+  }
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-size:11px;
+  }
 
-    /* Masonry / floating grid */
-    .grid{
-      column-count: 3;
-      column-gap: 24px;
-      max-width: 1200px;
-      margin:56px auto;
-      padding:0 24px;
-    }
-    @media (max-width:1000px){ .grid{column-count:2;} }
-    @media (max-width:640px){ .grid{column-count:1;} }
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 44px; }
 
-    /* Cards */
-    .card{
-      display:block;
-      position:relative;
-      margin:0 0 24px;
-      background:#111;
-      border-radius:0;
-      box-shadow:0 12px 28px rgba(0,0,0,0.2);
-      overflow:hidden;
-      break-inside: avoid;
-      transition: transform .35s ease, box-shadow .35s ease;
-    }
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 20px 40px rgba(0,0,0,0.25);
-    }
+  /* film grain overlay, used on dark panels */
+  .grain{ position:relative; }
+  .grain::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:0.5;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
 
-    .media{
-      width:100%;
-      height:100%;
-      background-size:cover;
-      background-position:center;
-      display:block;
-    }
+  /* ---------- brand-mark monogram (signature element) ---------- */
+  .mark-svg .ring{ fill:none; stroke:currentColor; stroke-width:2; }
+  .mark-svg .iron{ fill:none; stroke:currentColor; stroke-width:6; stroke-linecap:square; }
 
-    /* Varied size helpers */
-    .card.tall   {height:500px;}
-    .card.wide   {height:260px;}
-    .card.small  {height:180px;}
-    .card.big    {height:380px;}
+  /* ---------- nav ---------- */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:28px 44px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  header.site .mark-mini{ width:34px; height:34px; color:var(--paper); }
+  header.site nav{ display:flex; gap:34px; }
+  header.site nav a{ font-size:11px; }
+  header.site nav a:hover{ color:var(--iron); }
 
-    /* Overlay title */
-    .meta{
-      position:absolute; left:0; right:0; bottom:0;
-      padding:18px 20px;
-      background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.55) 100%);
-      color:#fff;
-    }
-    .meta span:first-child{font-weight:600;font-size:16px;}
-    .meta .sub{font-size:13px;color:var(--muted);}
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:150px 0 90px;
+    background:var(--ink);
+  }
+  .mark-watermark{
+    position:absolute;
+    right:-6%; top:50%; transform:translateY(-50%);
+    width:min(56vw, 620px); height:auto;
+    color:var(--paper);
+    opacity:0.05;
+    z-index:0;
+    pointer-events:none;
+  }
+  .hero .wrap{ position:relative; z-index:1; }
 
-    /* Modal player + description */
-    .modal{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-      background:rgba(3,3,3,0.92);
-      z-index:80; padding:26px;
-      opacity:0; pointer-events:none; transition:opacity .2s ease;
-    }
-    .modal.open{ opacity:1; pointer-events:auto; }
+  .stack{ margin-bottom:6px; }
+  .stack .word{
+    font-family:'Oswald', sans-serif;
+    font-weight:500;
+    font-size:clamp(30px, 5vw, 52px);
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    line-height:1.02;
+  }
+  .stack .sub{
+    font-family:'Oswald', sans-serif;
+    font-weight:400;
+    font-size:clamp(13px, 1.4vw, 16px);
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    color:var(--paper-dim);
+    margin:2px 0 22px;
+  }
 
-    /* inner wrapper to switch between column (mobile) and row (desktop) */
-    .modal-inner{
-      width:100%; max-width:1200px;
-      display:flex; flex-direction:column; gap:18px; align-items:center;
-    }
+  .hero-name{
+    margin-top:36px;
+    padding-top:36px;
+    border-top:1px solid var(--line-on-dark-strong);
+    display:flex;
+    align-items:baseline;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .hero-name .name{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    font-size:clamp(30px, 4vw, 46px);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .hero-name .role{ font-size:14px; color:var(--paper-dim); font-family:'Source Serif 4', serif; font-style:italic; }
 
-    .player{
-      width:100%;
-      max-width:1200px;
-      aspect-ratio:16/9;
-      border-radius:0;
-      overflow:hidden; background:#000;
-      box-shadow:0 24px 80px rgba(0,0,0,0.6);
-      flex: none;
-    }
+  .hero-foot{
+    margin-top:56px;
+    display:flex; gap:56px; flex-wrap:wrap;
+  }
+  .hero-foot .item{ display:flex; flex-direction:column; gap:8px; }
+  .hero-foot .item .mono{ color:var(--paper-dim); }
+  .hero-foot .item .val{ font-size:14px; }
 
-    .video-desc{
-      max-width:1200px;
-      color:#eee;
-      font-size:15px;
-      line-height:1.5;
-      text-align:center;
-      padding:14px 16px;
-      background:rgba(255,255,255,0.02);
-      border-radius:6px;
-    }
+  /* ---------- section skeleton ---------- */
+  section{ position:relative; padding:110px 0; }
+  .light{ background:var(--paper); color:var(--ink); }
+  .light .mono, .light .cap{ color:var(--ink-soft); }
 
-    /* Desktop: place description to the right of the player */
-    @media (min-width:900px){
-      .modal-inner{ flex-direction:row; align-items:flex-start; }
-      .player{ flex:1 1 auto; max-width:calc(100% - 380px); }
-      .video-desc{ flex:0 0 360px; text-align:left; max-height:80vh; overflow:auto; }
-    }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:64px; gap:20px; flex-wrap:wrap;
+    padding-bottom:20px;
+  }
+  .light .section-head{ border-bottom:1px solid var(--line-on-light-strong); }
+  .hero-adjacent .section-head{ border-bottom:1px solid var(--line-on-dark-strong); }
 
-    .close-btn{
-      position:fixed; right:28px; top:22px;
-      background:transparent; border:0; color:var(--white);
-      font-size:24px; cursor:pointer;
-    }
+  h2.h-title{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    font-size:clamp(26px, 3.2vw, 38px);
+    margin:0;
+  }
+  .section-head .idx{ font-size:12px; letter-spacing:0.14em; }
 
-    footer{
-      text-align:center; color:var(--muted);
-      padding:42px 20px; font-size:13px;
-    }
-  </style>
+  /* ---------- WORK ---------- */
+  .work-section{ background:var(--ink); color:var(--paper); }
+
+  .project{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:0;
+    border-top:1px solid var(--line-on-dark);
+  }
+  .project:last-child{ border-bottom:1px solid var(--line-on-dark); }
+  .project:nth-child(even){ direction:rtl; }
+  .project:nth-child(even) > *{ direction:ltr; }
+
+  .player{
+    position:relative;
+    aspect-ratio:16/10;
+    overflow:hidden;
+    cursor:pointer;
+    background:#000;
+  }
+  .player .poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .player .scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.7) 100%);
+  }
+  .player .fmt-tag{
+    position:absolute; top:16px; left:16px;
+    color:var(--paper); background:rgba(13,12,10,0.6);
+    padding:5px 10px;
+  }
+  .player .play-btn{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(1);
+    width:58px; height:58px; border-radius:50%;
+    border:1px solid rgba(237,232,220,0.7);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    background:rgba(13,12,10,0.2);
+  }
+  .player .play-btn svg{ width:16px; height:16px; margin-left:3px; }
+  .player:hover .play-btn{ transform:translate(-50%,-50%) scale(1.08); background:var(--iron); border-color:var(--iron); }
+
+  .player .bar{ position:absolute; left:16px; right:16px; bottom:16px; display:flex; align-items:center; gap:10px; }
+  .player .bar .track{ flex:1; height:1px; background:rgba(237,232,220,0.35); position:relative; }
+  .player .bar .track::after{ content:''; position:absolute; left:0; top:-1px; height:3px; width:28%; background:var(--iron); }
+  .player .bar .dur{ font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.04em; color:var(--paper); }
+
+  .project-info{
+    padding:52px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .project-info .p-num{ color:var(--paper-dim); margin-bottom:16px; }
+  .project-info h3{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-size:clamp(22px, 2.2vw, 28px);
+    margin:0 0 16px;
+  }
+  .project-info p{
+    font-weight:300; font-size:16px; line-height:1.7;
+    color:var(--paper-dim); margin:0 0 22px; max-width:420px;
+  }
+  .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .tags span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--paper); border:1px solid var(--line-on-dark-strong); padding:5px 10px;
+  }
+  .proj-link{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Oswald', sans-serif; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    border-bottom:1px solid var(--iron); padding-bottom:5px; width:fit-content;
+  }
+  .proj-link:hover{ color:var(--iron); }
+
+  /* ---------- BIO ---------- */
+  .bio-grid{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:90px; }
+  .bio-body p{ font-size:19px; line-height:1.8; font-weight:300; color:var(--ink-soft); margin:0 0 24px; }
+  .bio-body p:first-of-type::first-letter{
+    font-family:'Oswald', sans-serif; font-size:60px; font-weight:600;
+    float:left; line-height:0.85; padding:6px 10px 0 0; color:var(--iron);
+  }
+  .bio-body strong{ color:var(--ink); font-weight:600; }
+
+  .meta-list{ border-top:1px solid var(--line-on-light-strong); }
+  .meta-list .row{ padding:22px 0; border-bottom:1px solid var(--line-on-light); display:flex; flex-direction:column; gap:8px; }
+  .meta-list .row .mono{ color:var(--ink-soft); opacity:0.65; }
+  .meta-list .row .v{ font-size:16px; }
+  .meta-list .row .v span{ color:var(--ink-soft); opacity:0.55; }
+
+  /* ---------- CONTACT ---------- */
+  .contact{ background:var(--ink); color:var(--paper); }
+  .contact .big-link{
+    font-family:'Oswald', sans-serif; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-size:clamp(28px, 5.5vw, 62px);
+    display:inline-block;
+    border-bottom:2px solid var(--paper);
+    line-height:1.15;
+    transition:color .25s ease, border-color .25s ease;
+  }
+  .contact .big-link:hover{ color:var(--iron); border-color:var(--iron); }
+
+  .contact-grid{ margin-top:74px; display:grid; grid-template-columns:repeat(3, 1fr); gap:40px; }
+  .contact-grid .col .mono{ color:var(--paper-dim); margin-bottom:16px; display:block; }
+  .contact-grid .col a, .contact-grid .col div{ font-size:15px; line-height:2.1; }
+  .contact-grid .col a:hover{ color:var(--iron); }
+
+  footer{
+    padding:44px 0 54px;
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px;
+    border-top:1px solid var(--line-on-dark);
+  }
+  footer .mono{ color:var(--paper-dim); }
+  #tc{ color:var(--iron); }
+
+  @media (max-width:900px){
+    .project{ grid-template-columns:1fr; }
+    .project:nth-child(even){ direction:ltr; }
+    .project-info{ padding:36px 6px; }
+  }
+  @media (max-width:820px){
+    .bio-grid{ grid-template-columns:1fr; gap:48px; }
+    .contact-grid{ grid-template-columns:1fr 1fr; }
+    header.site nav{ display:none; }
+    .wrap{ padding:0 26px; }
+    .mark-watermark{ width:80vw; opacity:0.04; }
+  }
+  @media (prefers-reduced-motion: reduce){ * { scroll-behavior:auto !important; } }
+</style>
 </head>
 <body>
 
-  <header class="site" role="banner">
-    <div class="brand">
-      <div class="name">Yoann Casals</div>
-      <div class="role">Film Director & Motion Designer</div>
+<!-- reusable monogram def -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="ycsl-mark" viewBox="0 0 120 120">
+    <circle class="ring" cx="60" cy="60" r="56"/>
+    <circle class="ring" cx="60" cy="60" r="50"/>
+    <path class="iron" d="M34,34 L60,66 L86,34"/>
+    <path class="iron" d="M60,66 L60,92"/>
+    <path class="iron" d="M84,78 C84,90 72,96 62,96 C50,96 42,88 42,78"/>
+  </symbol>
+</svg>
+
+<header class="site">
+  <svg class="mark-mini mark-svg"><use href="#ycsl-mark"/></svg>
+  <nav class="cap">
+    <a href="#work">Work</a>
+    <a href="#bio">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero grain">
+  <svg class="mark-watermark mark-svg" viewBox="0 0 120 120"><use href="#ycsl-mark"/></svg>
+  <div class="wrap">
+
+    <div class="stack">
+      <div class="word">Field</div>
+      <div class="sub">is the source</div>
+    </div>
+    <div class="stack">
+      <div class="word">Frame</div>
+      <div class="sub">is the craft</div>
+    </div>
+    <div class="stack">
+      <div class="word">Cut</div>
+      <div class="sub">is the truth</div>
     </div>
 
-    <nav role="navigation" aria-label="main nav">
-      <a class="contact" id="contactLink" href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <main class="container" role="main">
-    <div class="grid" id="gallery">
-
-      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/76979871" data-provider="vimeo" data-description="Épisode court du podcast 'Envie de Braiser' — mix son & montage; une exploration intime autour de la cuisine et du récit." aria-label="Open Project — Project One">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/download.jpeg')"></div>
-        <div class="meta">
-          <span>Envie de Braiser</span>
-          <span class="sub">2023 · podcast</span>
-        </div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/930765961" data-provider="vimeo" data-description="Publicité retail pour ALINEA — film 2025, création de l'habillage produit et motion design adapté au point de vente." aria-label="Open Project — Project Two">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/Alinea-gif.gif')"></div>
-        <div class="meta">
-          <span>Alinea - Retail 2025</span>
-          <span class="sub">2024 · commercial</span>
-        </div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/932549652" data-provider="vimeo" data-description="Campagne de communication pour Vertigeo — identité animée, séquences motion et habillage sonore." aria-label="Open Project — Project Three">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/vertigeo.jpg')"></div>
-        <div class="meta">
-          <span>Vertigeo</span>
-          <span class="sub">2022 · communication & motion design</span>
-        </div>
-      </a>
-
-      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/ScMzIvxBSi4" data-provider="youtube" data-description="Clip musical — direction artistique, découpage image et montage rythmique." aria-label="Open Project — Project Four">
-        <div class="media" style="background-image: url('thumbs/project4.gif')"></div>
-        <div class="meta">
-          <span>Project Four</span>
-          <span class="sub">2021 · music video</span>
-        </div>
-      </a>
-
-      <a class="card wide" href="#" tabindex="0" data-video="https://www.youtube.com/embed/xlLg6aeUm0o?si=xflWd-BLWclX98x3" data-provider="youtube" data-description="Concours AFET 2021 à Randals Bison avec Rando Ranch." aria-label="Open Project — Project Five">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/EquitationAnintroductiontoRanchSorting-French-ezgif.com-resize.gif')"></div>
-        <div class="meta">
-          <span>An introduction to Ranch Sorting</span>
-          <span class="sub">2021 · Documentary</span>
-        </div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="" data-provider="youtube" data-description="Contenu social créé pour SIRHA 2025 — loops et formats courts optimisés réseaux (source vidéo non fournie)." aria-label="Open Project — Project Six">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/LVB-CDM-Reveal.gif')"></div>
-        <div class="meta">
-          <span>SIRHA 2025</span>
-          <span class="sub">2025 · social media</span>
-        </div>
-      </a>
-
-        
-
-      <!-- Added 18 cards below -->
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://www.youtube.com/embed/pU0rH8hnpOQ?si=8m7sMBWdvGRV7A7b" data-provider="youtube" data-description="Conception et storyboard de TV Commercial." aria-label="Project 9">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/agpm-storyboard.gif')"></div>
-        <div class="meta"><span>Groupe AGPM</span><span class="sub">TV Commercial</span></div>
-      </a>
-
-      <a class="card small" href="#" tabindex="0" data-video="https://player.vimeo.com/video/123456789" data-provider="vimeo" data-description="Projet 7 — teaser produit; motion design et étalonnage." aria-label="Project 7">
-        <div class="media" style="background-image: url('thumbs/project7.jpg')"></div>
-        <div class="meta"><span>Project Seven</span><span class="sub">2020 · teaser</span></div>
-      </a>
-
-      <a class="card wide" href="#" tabindex="0" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-provider="youtube" data-description="Project 8 — case study; storytelling et montage." aria-label="Project 8">
-        <div class="media" style="background-image: url('thumbs/project8.jpg')"></div>
-        <div class="meta"><span>Project Eight</span><span class="sub">2019 · case study</span></div>
-      </a>
-
-      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/GuoZL6nd9fk?si=t36hAhDvR2w0qUc8" data-provider="youtube" data-description="iTunes : https://itunes.apple.com/fr/podcast/pardon-maman/id1234291617
-Spotify : https://open.spotify.com/show/3qaC9qCtUSFh60idYUlSKf
-Deezer : http://www.deezer.com/show/54685
-Twitter : @PardonMamanPod
-Facebook : https://www.facebook.com/PardonMamanPodcast/
-Instagram : https://www.instagram.com/pardonmamanpodcast/
-Le site : http://pardonmaman.fr" aria-label="Project 10">
-        <div class="media" style="background-image: url('https://raw.githubusercontent.com/ycsls/ycsls.github.io/refs/heads/main/la-fine-equipe-de-pardon-maman-pendant-l-edition-2019-du-paris-podcast-festival-de-g-a-dr-juan-hisham-ilias-et-camille-photo-dr-1614439653.jpg')"></div>
-        <div class="meta"><span>Pardon Maman</span><span class="sub">Podcast</span></div>
-      </a>
-
-      <a class="card small" href="#" tabindex="0" data-video="https://player.vimeo.com/video/112233445" data-provider="vimeo" data-description="Project 11 — motion graphics pour événementiel." aria-label="Project 11">
-        <div class="media" style="background-image: url('thumbs/project11.jpg')"></div>
-        <div class="meta"><span>Project Eleven</span><span class="sub">2022 · motion</span></div>
-      </a>
-
-      <a class="card wide" href="#" tabindex="0" data-video="" data-provider="vimeo" data-description="Project 12 — concept non publié; visuels uniquement." aria-label="Project 12">
-        <div class="media" style="background-image: url('thumbs/project12.jpg')"></div>
-        <div class="meta"><span>Project Twelve</span><span class="sub">2023 · concept</span></div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/556677889" data-provider="vimeo" data-description="Project 13 — documentaire court; interviews et montage." aria-label="Project 13">
-        <div class="media" style="background-image: url('thumbs/project13.jpg')"></div>
-        <div class="meta"><span>Project Thirteen</span><span class="sub">2020 · documentary</span></div>
-      </a>
-
-      <a class="card big" href="#" tabindex="0" data-video="https://www.youtube.com/embed/5NV6Rdv1a3I" data-provider="youtube" data-description="Project 14 — vidéo musicale; direction et montage." aria-label="Project 14">
-        <div class="media" style="background-image: url('thumbs/project14.jpg')"></div>
-        <div class="meta"><span>Project Fourteen</span><span class="sub">2017 · music video</span></div>
-      </a>
-
-      <a class="card small" href="#" tabindex="0" data-video="https://player.vimeo.com/video/223344556" data-provider="vimeo" data-description="Project 15 — social campaign; formats courts." aria-label="Project 15">
-        <div class="media" style="background-image: url('thumbs/project15.jpg')"></div>
-        <div class="meta"><span>Project Fifteen</span><span class="sub">2024 · social</span></div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://player.vimeo.com/video/334455667" data-provider="vimeo" data-description="Project 16 — film court; récit visuel et son." aria-label="Project 16">
-        <div class="media" style="background-image: url('thumbs/project16.jpg')"></div>
-        <div class="meta"><span>Project Sixteen</span><span class="sub">2019 · short film</span></div>
-      </a>
-
-      <a class="card wide" href="#" tabindex="0" data-video="https://www.youtube.com/embed/3JZ_D3ELwOQ" data-provider="youtube" data-description="Project 17 — publicité télévision; montage et motion design." aria-label="Project 17">
-        <div class="media" style="background-image: url('thumbs/project17.jpg')"></div>
-        <div class="meta"><span>Project Seventeen</span><span class="sub">2016 · commercial</span></div>
-      </a>
-
-      <a class="card small" href="#" tabindex="0" data-video="" data-provider="youtube" data-description="Project 18 — test footage; images brutes." aria-label="Project 18">
-        <div class="media" style="background-image: url('thumbs/project18.jpg')"></div>
-        <div class="meta"><span>Project Eighteen</span><span class="sub">2025 · test</span></div>
-      </a>
-
-      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/445566778" data-provider="vimeo" data-description="Project 19 — installation; boucle visuelle et son." aria-label="Project 19">
-        <div class="media" style="background-image: url('thumbs/project19.jpg')"></div>
-        <div class="meta"><span>Project Nineteen</span><span class="sub">2015 · installation</span></div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="https://www.youtube.com/embed/L_jWHffIx5E" data-provider="youtube" data-description="Project 20 — archive remix; expérimentation sonore." aria-label="Project 20">
-        <div class="media" style="background-image: url('thumbs/project20.jpg')"></div>
-        <div class="meta"><span>Project Twenty</span><span class="sub">2014 · experimental</span></div>
-      </a>
-
-      <a class="card small" href="#" tabindex="0" data-video="https://player.vimeo.com/video/667788990" data-provider="vimeo" data-description="Project 21 — film promo; montage et étalonnage." aria-label="Project 21">
-        <div class="media" style="background-image: url('thumbs/project21.jpg')"></div>
-        <div class="meta"><span>Project Twenty-One</span><span class="sub">2023 · promo</span></div>
-      </a>
-
-      <a class="card wide" href="#" tabindex="0" data-video="https://www.youtube.com/embed/tVj0ZTS4WF4" data-provider="youtube" data-description="Project 22 — chrono documentaire; time-lapse et interviews." aria-label="Project 22">
-        <div class="media" style="background-image: url('thumbs/project22.jpg')"></div>
-        <div class="meta"><span>Project Twenty-Two</span><span class="sub">2022 · documentary</span></div>
-      </a>
-
-      <a class="card tall" href="#" tabindex="0" data-video="" data-provider="vimeo" data-description="Project 23 — prototype; contenu non distribué." aria-label="Project 23">
-        <div class="media" style="background-image: url('thumbs/project23.jpg')"></div>
-        <div class="meta"><span>Project Twenty-Three</span><span class="sub">2025 · prototype</span></div>
-      </a>
-
-      <a class="card big" href="#" tabindex="0" data-video="https://player.vimeo.com/video/778899001" data-provider="vimeo" data-description="Project 24 — collaboration internationale; habillage et montage." aria-label="Project 24">
-        <div class="media" style="background-image: url('thumbs/project24.jpg')"></div>
-        <div class="meta"><span>Project Twenty-Four</span><span class="sub">2020 · collaboration</span></div>
-      </a>
-
+    <div class="hero-name">
+      <span class="name">Yoann Casals</span>
+      <span class="role">Director — Journalist — Motion Designer</span>
     </div>
-  </main>
 
-  <!-- Modal player -->
-  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-label="Video player">
-    <button class="close-btn" id="closeBtn" aria-label="Close player">✕</button>
-
-    <div class="modal-inner">
-      <div class="player" id="playerWrap">
-        <iframe id="playerFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Video player"></iframe>
-      </div>
-
-      <div class="video-desc" id="videoDesc" aria-live="polite"></div>
+    <div class="hero-foot">
+      <div class="item"><span class="mono">Based</span><span class="val">Marseille, France — often elsewhere</span></div>
+      <div class="item"><span class="mono">Focus</span><span class="val">Corporate & branded film · Western horsemanship · Music</span></div>
+      <div class="item"><span class="mono">Status</span><span class="val">Booking Q1 2027</span></div>
     </div>
   </div>
+</section>
 
-  <footer id="contact">
-    <div>© <strong>Yoann Casals</strong> — <span id="year"></span></div>
-    <div style="margin-top:8px;color:var(--muted);">email: <a href="mailto:hello@yoanncasals.com" style="color:var(--muted)">hello@yoanncasals.com</a></div>
-  </footer>
+<!-- WORK -->
+<section id="work" class="work-section grain hero-adjacent">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-title">Selected Work</h2>
+      <span class="mono idx">01 / 03</span>
+    </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <div class="project">
+      <div class="player" role="button" aria-label="Play Groundwork">
+        <svg class="poster" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="320" fill="#15130F"/>
+          <rect width="500" height="320" fill="url(#g1)"/>
+          <path d="M0,240 L120,150 L230,205 L340,120 L500,190 L500,320 L0,320 Z" fill="#000" opacity="0.55"/>
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2A2723"/><stop offset="1" stop-color="#0D0C0A"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="scrim"></div>
+        <span class="fmt-tag mono">Film · 03:40</span>
+        <div class="play-btn"><svg viewBox="0 0 24 24" fill="#EDE8DC"><path d="M6 4l14 8-14 8z"/></svg></div>
+        <div class="bar"><span class="track"></span><span class="dur mono">01:12 / 03:40</span></div>
+      </div>
+      <div class="project-info">
+        <span class="p-num mono">Branded Film</span>
+        <h3>Groundwork</h3>
+        <p>A corporate sustainability film for an agricultural equipment brand — three regional plant managers, one throughline, shot across four states in six days.</p>
+        <div class="tags"><span>Direction</span><span>Cinematography</span><span>Client management</span></div>
+        <a class="proj-link" href="#">Watch the film →</a>
+      </div>
+    </div>
 
-    const gallery = document.getElementById('gallery');
-    const modal = document.getElementById('modal');
-    const iframe = document.getElementById('playerFrame');
-    const closeBtn = document.getElementById('closeBtn');
-    const descBox = document.getElementById('videoDesc');
+    <div class="project">
+      <div class="player" role="button" aria-label="Play The Working Horse">
+        <svg class="poster" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="320" fill="#181510"/>
+          <rect width="500" height="320" fill="url(#g2)"/>
+          <path d="M0,230 C100,215 180,235 260,220 C340,205 420,225 500,215 L500,320 L0,320 Z" fill="#000" opacity="0.6"/>
+          <path d="M190,215 C193,180 205,140 218,120 C220,145 226,132 234,112 C237,140 244,126 253,118 C250,152 257,164 270,174 C258,182 246,186 233,196 C220,203 202,204 190,215 Z" fill="#7C1F16" opacity="0.65"/>
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#332D24"/><stop offset="1" stop-color="#0D0C0A"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="scrim"></div>
+        <span class="fmt-tag mono">Doc · 38:00</span>
+        <div class="play-btn"><svg viewBox="0 0 24 24" fill="#EDE8DC"><path d="M6 4l14 8-14 8z"/></svg></div>
+        <div class="bar"><span class="track"></span><span class="dur mono">04:51 / 38:00</span></div>
+      </div>
+      <div class="project-info">
+        <span class="p-num mono">Documentary</span>
+        <h3>The Working Horse</h3>
+        <p>A feature documentary on western horsemanship in the Camargue — quarter horse trainers, cattle work, and the discipline behind the reins.</p>
+        <div class="tags"><span>Direction</span><span>Field reporting</span><span>Sound design</span></div>
+        <a class="proj-link" href="#">Watch the trailer →</a>
+      </div>
+    </div>
 
-    gallery.addEventListener('click', (ev) => {
-      const card = ev.target.closest('.card');
-      if(!card) return;
-      ev.preventDefault();
-      openVideo(card);
-    });
-    gallery.addEventListener('keydown', (ev) => {
-      if(ev.key === 'Enter' || ev.key === ' '){
-        const card = ev.target.closest('.card') || ev.target;
-        if(!card || !card.classList.contains('card')) return;
-        ev.preventDefault();
-        openVideo(card);
-      }
-    });
+    <div class="project">
+      <div class="player" role="button" aria-label="Play Feedback Loop">
+        <svg class="poster" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="320" fill="#0D0C0A"/>
+          <g stroke="#7C1F16" stroke-width="5" opacity="0.85">
+            <line x1="40" y1="180" x2="40" y2="220"/><line x1="65" y1="130" x2="65" y2="270"/>
+            <line x1="90" y1="100" x2="90" y2="300"/><line x1="115" y1="160" x2="115" y2="240"/>
+            <line x1="140" y1="80" x2="140" y2="320"/><line x1="165" y1="180" x2="165" y2="220"/>
+            <line x1="190" y1="120" x2="190" y2="280"/><line x1="215" y1="70" x2="215" y2="330"/>
+            <line x1="240" y1="150" x2="240" y2="250"/><line x1="265" y1="100" x2="265" y2="300"/>
+            <line x1="290" y1="170" x2="290" y2="230"/><line x1="315" y1="115" x2="315" y2="285"/>
+            <line x1="340" y1="75" x2="340" y2="325"/><line x1="365" y1="155" x2="365" y2="245"/>
+            <line x1="390" y1="125" x2="390" y2="275"/><line x1="415" y1="175" x2="415" y2="225"/>
+            <line x1="440" y1="105" x2="440" y2="295"/><line x1="465" y1="165" x2="465" y2="235"/>
+          </g>
+        </svg>
+        <div class="scrim"></div>
+        <span class="fmt-tag mono">Live visuals · 04:22</span>
+        <div class="play-btn"><svg viewBox="0 0 24 24" fill="#EDE8DC"><path d="M6 4l14 8-14 8z"/></svg></div>
+        <div class="bar"><span class="track"></span><span class="dur mono">02:03 / 04:22</span></div>
+      </div>
+      <div class="project-info">
+        <span class="p-num mono">Music Film</span>
+        <h3>Feedback Loop</h3>
+        <p>Music video and live-show motion graphics for a touring folk-rock outfit — generative visuals cut live to the set, then recut for the video.</p>
+        <div class="tags"><span>Motion design</span><span>Direction</span><span>Editing</span></div>
+        <a class="proj-link" href="#">Watch the video →</a>
+      </div>
+    </div>
 
-    function openVideo(card){
-      let src = card.getAttribute('data-video') || '';
-      const provider = (card.getAttribute('data-provider') || '').toLowerCase();
-      const desc = card.getAttribute('data-description') || '';
+  </div>
+</section>
 
-      // Prepare description
-      descBox.textContent = desc;
+<!-- BIO -->
+<section id="bio" class="light">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-title">About</h2>
+      <span class="mono idx">02 / 03</span>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-body">
+        <p>Yoann started out filing dispatches from places most editors wouldn't send a crew, and picked up a camera because the words alone weren't carrying the weight of what he saw. Fifteen years on, the reporting instinct hasn't left — it just found a wider set of tools.</p>
+        <p>He directs branded and corporate film alongside longer-form documentary work, much of it outdoors: ranch and rangeland stories, western horsemanship, working animals and the people around them. When a story needs a beat that live-action can't catch, he builds it frame by frame in motion design — including live visuals for touring musicians.</p>
+        <p>The throughline across all three: <strong>patience — waiting for the light, waiting for the source to say the true thing, waiting for the keyframe to feel inevitable instead of clever.</strong></p>
+      </div>
+      <div class="meta-list">
+        <div class="row"><span class="mono">Roles</span><span class="v">Director <span>·</span> Journalist <span>·</span> Motion Designer</span></div>
+        <div class="row"><span class="mono">Clients & outlets</span><span class="v">Le Monde <span>·</span> Arte <span>·</span> John Deere FR <span>·</span> Various touring acts</span></div>
+        <div class="row"><span class="mono">Tools</span><span class="v">Digital cinema <span>·</span> After Effects <span>·</span> Cinema 4D</span></div>
+        <div class="row"><span class="mono">Languages</span><span class="v">French <span>·</span> English <span>·</span> Spanish</span></div>
+        <div class="row"><span class="mono">Available for</span><span class="v">Direction <span>·</span> Corporate & branded film <span>·</span> Live visuals</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      // If no video source, still open modal to show description
-      if(!src){
-        iframe.src = '';
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        closeBtn.focus();
-        return;
-      }
+<!-- CONTACT -->
+<section id="contact" class="contact grain">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-title">Get In Touch</h2>
+      <span class="mono idx">03 / 03</span>
+    </div>
+    <a class="big-link" href="mailto:hello@yoanncasals.com">hello@yoanncasals.com</a>
 
-      // Normalize YouTube / Vimeo to embed + autoplay
-      if(provider === 'youtube' || src.includes('youtube.com') || src.includes('youtu.be')) {
-        if(src.includes('watch?v=')) src = src.replace('watch?v=', 'embed/');
-        if(src.includes('youtu.be/')) src = src.replace('youtu.be/','www.youtube.com/embed/');
-        src += (src.includes('?') ? '&' : '?') + 'autoplay=1&rel=0&modestbranding=1';
-      } else if(provider === 'vimeo' || src.includes('vimeo.com')) {
-        if(src.includes('vimeo.com/') && !src.includes('player.vimeo.com')) src = src.replace('vimeo.com/','player.vimeo.com/video/');
-        src += (src.includes('?') ? '&' : '?') + 'autoplay=1';
-      }
+    <div class="contact-grid">
+      <div class="col">
+        <span class="mono">Elsewhere</span>
+        <div><a href="#">Instagram — @ycsl</a></div>
+        <div><a href="#">Vimeo — /yoanncasals</a></div>
+        <div><a href="#">LinkedIn — Yoann Casals</a></div>
+      </div>
+      <div class="col">
+        <span class="mono">Direct</span>
+        <div><a href="tel:+33600000000">+33 6 00 00 00 00</a></div>
+        <div>Marseille, France</div>
+      </div>
+      <div class="col">
+        <span class="mono">Reels & press kit</span>
+        <div><a href="#">Download showreel (.mp4)</a></div>
+        <div><a href="#">Download press kit (.pdf)</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      iframe.src = src;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-      closeBtn.focus();
+<footer class="wrap">
+  <svg class="mark-mini mark-svg" style="width:26px;height:26px;"><use href="#ycsl-mark"/></svg>
+  <span class="mono">© 2026 Yoann Casals — YCSL</span>
+  <span class="mono">Rec <span id="tc">00:00:00:00</span></span>
+</footer>
+
+<script>
+  (function(){
+    const el = document.getElementById('tc');
+    if(!el) return;
+    let f = 0;
+    const fps = 24;
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      f++;
+      const totalSec = Math.floor(f / fps);
+      const frames = f % fps;
+      const h = Math.floor(totalSec/3600);
+      const m = Math.floor((totalSec%3600)/60);
+      const s = totalSec%60;
+      el.textContent = `${pad(h)}:${pad(m)}:${pad(s)}:${pad(frames)}`;
+      requestAnimationFrame(tick);
     }
-
-    function closePlayer(){
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      iframe.src = '';
-      descBox.textContent = '';
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      requestAnimationFrame(tick);
     }
+  })();
+</script>
 
-    closeBtn.addEventListener('click', closePlayer);
-    modal.addEventListener('click', (e) => {
-      if(e.target === modal) closePlayer();
-    });
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape' && modal.classList.contains('open')) closePlayer();
-    });
-
-    document.querySelectorAll('.card .media').forEach(m => {
-      const bg = m.style.backgroundImage || '';
-      if(!bg) m.style.backgroundColor = '#111';
-    });
-  </script>
 </body>
 </html>
