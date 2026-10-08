@@ -16,7 +16,7 @@ All local asset links are relative and work from a repository subpath.
 
 ## Update the reel
 
-Add the final MP4 file under `assets/` and set it as the `src` on the `<video class="reel-player">` element in `index.html`. The attached ranch image is currently used as the hero background and video poster. A real video file or direct embed URL has not been supplied yet.
+The supplied 1080p showreel is included as `showreel-homepage.mp4` and plays in the full-screen responsive player. The original file was 119 MB, so the included H.264 copy is compressed to fit GitHub’s standard per-file upload limit while retaining its 1080p resolution. The source did not contain an audio stream.
 
 ## Contact form
 
