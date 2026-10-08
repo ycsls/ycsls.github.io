@@ -16,7 +16,7 @@ All local asset links are relative and work from a repository subpath.
 
 ## Update the reel
 
-The supplied 1080p showreel is included as `showreel-homepage.mp4` and plays in the full-screen responsive player. The original file was 119 MB, so the included H.264 copy is compressed to fit GitHub’s standard per-file upload limit while retaining its 1080p resolution. The source did not contain an audio stream.
+The supplied 1080p showreel is included as `showreel-homepage.mp4` and plays in the full-screen responsive player. It starts muted and loops while visible, unless the visitor has enabled reduced motion; native video controls let them pause or stop it. The original file was 119 MB, so the included H.264 copy is compressed to fit GitHub’s standard per-file upload limit while retaining its 1080p resolution. The source did not contain an audio stream. The video is self-hosted, with no third-party video embed added.
 
 ## Contact form
 

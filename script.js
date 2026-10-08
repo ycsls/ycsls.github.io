@@ -22,3 +22,29 @@ document.addEventListener('fullscreenchange', () => {
   fullscreenButton.setAttribute('aria-label', fullscreen ? 'Exit full screen' : 'Enter full screen');
   fullscreenButton.innerHTML = fullscreen ? 'EXIT FULL SCREEN <span aria-hidden="true">↙</span>' : 'FULL SCREEN <span aria-hidden="true">↗</span>';
 });
+
+// Autoplay only when motion is allowed and the reel is on screen.
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+player.muted = true;
+player.loop = !motionPreference.matches;
+let reelVisible = false;
+async function syncReelPlayback() {
+  if (motionPreference.matches || !reelVisible) {
+    player.pause();
+    return;
+  }
+  try {
+    await player.play();
+  } catch {
+    // Autoplay can still be blocked by browser or device settings; native controls remain available.
+  }
+}
+const reelObserver = new IntersectionObserver(([entry]) => {
+  reelVisible = entry.isIntersecting && entry.intersectionRatio >= 0.4;
+  syncReelPlayback();
+}, { threshold: [0, 0.4, 1] });
+reelObserver.observe(player);
+motionPreference.addEventListener('change', () => {
+  player.loop = !motionPreference.matches;
+  syncReelPlayback();
+});
