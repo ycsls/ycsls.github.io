@@ -14,6 +14,10 @@ Open `index.html` in a browser, or run `python3 -m http.server 8000` from this f
 
 All local asset links are relative and work from a repository subpath.
 
+## Hero background
+
+The header uses `hero-background.mp4` as a muted, looping, inline background video with `hero-ranch.png` as its poster fallback. Keep both files in the repository root when publishing. The video is H.264 and has no audio track; it pauses when the visitor requests reduced motion.
+
 ## Update the reel
 
 The supplied 1080p showreel is included as `showreel-homepage.mp4` and plays in the full-screen responsive player. It starts muted and loops while visible, unless the visitor has enabled reduced motion; native video controls let them pause or stop it. The original file was 119 MB, so the included H.264 copy is compressed to fit GitHub’s standard per-file upload limit while retaining its 1080p resolution. The source did not contain an audio stream. The video is self-hosted, with no third-party video embed added.

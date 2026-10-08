@@ -1,5 +1,20 @@
 'use strict';
 const form = document.querySelector('#contact-form');
+
+const heroBackground = document.querySelector('.hero-background');
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (heroBackground) {
+  const syncHeroPlayback = () => {
+    if (motionPreference.matches) {
+      heroBackground.pause();
+      return;
+    }
+    heroBackground.play().catch(() => {});
+  };
+  syncHeroPlayback();
+  motionPreference.addEventListener('change', syncHeroPlayback);
+}
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
@@ -23,8 +38,9 @@ document.addEventListener('fullscreenchange', () => {
   fullscreenButton.innerHTML = fullscreen ? 'EXIT FULL SCREEN <span aria-hidden="true">↙</span>' : 'FULL SCREEN <span aria-hidden="true">↗</span>';
 });
 
-// Autoplay only when motion is allowed and the reel is on screen.
-const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+// Autoplay the hero only when motion is allowed.
+// The showreel starts only when visible and motion is allowed.
+
 player.muted = true;
 player.loop = !motionPreference.matches;
 let reelVisible = false;
