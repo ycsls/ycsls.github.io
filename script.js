@@ -24,22 +24,8 @@ form.addEventListener('submit', (event) => {
   window.location.href = `mailto:yoanncasals@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
-const playerShell = document.querySelector('.player-shell');
 const player = document.querySelector('.reel-player');
-const fullscreenButton = document.querySelector('#fullscreen-button');
-fullscreenButton.addEventListener('click', async () => {
-  if (document.fullscreenElement) await document.exitFullscreen();
-  else if (playerShell.requestFullscreen) await playerShell.requestFullscreen();
-  else if (player.webkitEnterFullscreen) player.webkitEnterFullscreen();
-});
-document.addEventListener('fullscreenchange', () => {
-  const fullscreen = Boolean(document.fullscreenElement);
-  fullscreenButton.setAttribute('aria-label', fullscreen ? 'Exit full screen' : 'Enter full screen');
-  fullscreenButton.innerHTML = fullscreen ? 'EXIT FULL SCREEN <span aria-hidden="true">↙</span>' : 'FULL SCREEN <span aria-hidden="true">↗</span>';
-});
-
-// Autoplay the hero only when motion is allowed.
-// The showreel starts only when visible and motion is allowed.
+// The showreel starts only while visible and motion is allowed.
 
 player.muted = true;
 player.loop = !motionPreference.matches;
@@ -52,7 +38,7 @@ async function syncReelPlayback() {
   try {
     await player.play();
   } catch {
-    // Autoplay can still be blocked by browser or device settings; native controls remain available.
+    // Autoplay can still be blocked by browser or device settings.
   }
 }
 const reelObserver = new IntersectionObserver(([entry]) => {
