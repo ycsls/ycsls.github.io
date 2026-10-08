@@ -1,324 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Yoann Casals — Director</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0d0c0a;
-  --bg-deep:#080706;
-  --paper:#ede8dc;
-  --paper-dim:#d8d1bf;
-  --muted:#a79d88;
-  --hairline:rgba(237,232,220,.14);
-  --accent:#8a2a1c;
-  --accent-bright:#b23a26;
-  --umber:#2b2018;
-  --gold:#c9a468;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--paper);
-  font-family:"Source Serif 4",serif;
-  font-weight:300;
-  overflow-x:hidden;
-}
-a{text-decoration:none;color:inherit}
-img{-webkit-user-drag:none;user-select:none}
-::selection{background:var(--accent);color:var(--paper)}
-
-/* film grain, sits above everything, never blocks interaction */
-.grain{
-  position:fixed;inset:0;z-index:200;pointer-events:none;
-  opacity:.05;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.wrap{width:min(1240px,92vw);margin:auto}
-
-/* ---------- reveal-on-scroll ---------- */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.16,.8,.24,1),transform 1.1s cubic-bezier(.16,.8,.24,1)}
-.reveal.is-in{opacity:1;transform:none}
-
-/* ---------- header ---------- */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:30px clamp(20px,4vw,56px);
-  background:linear-gradient(to bottom,rgba(8,7,6,.55),transparent);
-}
-.logo{font:500 16px/1 Oswald,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-.logo span{color:var(--muted);font-weight:300;margin-left:.6em;font-size:.85em}
-nav{display:flex;align-items:center;gap:40px;font:400 12px Oswald,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-dim)}
-nav a{position:relative;padding-bottom:4px}
-nav a:after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .5s cubic-bezier(.16,.8,.24,1)}
-nav a:hover:after{width:100%}
-nav a:hover{color:var(--paper)}
-
-/* ---------- hero ---------- */
-.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end}
-.hero video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:saturate(.9) contrast(1.05);
-  transform:scale(1.02);
-}
-.hero:after{
-  content:"";position:absolute;inset:0;
-  background:
-    linear-gradient(to top,rgba(8,7,6,.92) 0%,rgba(8,7,6,.35) 42%,rgba(8,7,6,.15) 62%,rgba(8,7,6,.55) 100%);
-}
-.hero-timecode{
-  position:absolute;top:110px;right:clamp(20px,4vw,56px);z-index:2;
-  font:400 12px "Space Mono",monospace;letter-spacing:.08em;color:var(--muted);
-  writing-mode:vertical-rl;
-}
-.hero-content{position:relative;z-index:2;width:100%;padding:0 clamp(20px,4vw,56px) 90px}
-.kicker{
-  font:400 13px Oswald,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);
-  margin-bottom:26px;display:flex;align-items:center;gap:16px;
-}
-.kicker:before{content:"";display:inline-block;width:44px;height:1px;background:var(--gold)}
-h1.title{
-  font:600 clamp(3.4rem,10vw,8.4rem) Oswald,sans-serif;text-transform:uppercase;
-  line-height:.86;letter-spacing:-.01em;
-}
-h1.title em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--paper);display:block}
-.hero-foot{
-  margin-top:44px;display:flex;justify-content:space-between;align-items:flex-end;
-  flex-wrap:wrap;gap:28px;border-top:1px solid var(--hairline);padding-top:26px;
-}
-.tag{font:300 1.18rem/1.75 "Source Serif 4",serif;max-width:32rem;color:var(--paper-dim)}
-.scroll-cue{font:400 11px "Space Mono",monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
-.scroll-cue .line{width:1px;height:36px;background:var(--muted);position:relative;overflow:hidden}
-.scroll-cue .line:after{content:"";position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold);animation:runline 2.4s ease-in-out infinite}
-@keyframes runline{0%{top:-100%}50%{top:0}100%{top:100%}}
-
-/* ---------- sections generic ---------- */
-section{padding:170px 0}
-.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:88px;flex-wrap:wrap}
-.eyebrow{font:400 12px "Space Mono",monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:18px}
-.eyebrow:before{content:"— ";color:var(--gold)}
-h2{font:500 clamp(2.4rem,4.4vw,3.6rem) Oswald,sans-serif;text-transform:uppercase;letter-spacing:-.01em;line-height:1.02}
-.section-note{max-width:24rem;color:var(--muted);font:300 1.02rem/1.7 "Source Serif 4",serif;text-align:right}
-
-/* ---------- work / projects ---------- */
-.grid{display:flex;flex-direction:column;gap:150px}
-.project{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
-.project:nth-child(even){grid-template-columns:.85fr 1.15fr}
-.project:nth-child(even) .project-media{order:2}
-.project:nth-child(even) .project-body{order:1}
-.project-media{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--umber)}
-.project-media img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  filter:grayscale(.55) sepia(.12) contrast(1.05);
-  transform:scale(1.06);
-  transition:filter 1s cubic-bezier(.16,.8,.24,1),transform 1.4s cubic-bezier(.16,.8,.24,1);
-}
-.project-media:hover img{filter:grayscale(0) sepia(0) contrast(1);transform:scale(1)}
-.project-media:after{
-  content:"";position:absolute;inset:0;border:1px solid rgba(237,232,220,.18);pointer-events:none;
-}
-.project-index{
-  font:400 12px "Space Mono",monospace;color:var(--gold);letter-spacing:.1em;
-  position:absolute;bottom:16px;left:16px;z-index:2;background:rgba(8,7,6,.55);
-  padding:5px 10px;backdrop-filter:blur(3px);
-}
-.project-body h3{font:600 2.2rem Oswald,sans-serif;text-transform:uppercase;margin-bottom:8px;letter-spacing:-.01em}
-.project-body .role{font:400 12px Oswald,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:block}
-.project-body p{color:var(--muted);line-height:1.85;font-size:1.06rem;max-width:34rem}
-
-/* ---------- about ---------- */
-.about{background:var(--paper);color:var(--bg-deep);position:relative}
-.about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:center}
-.about-media{position:relative;aspect-ratio:3/4;overflow:hidden}
-.about-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(.35) contrast(1.05)}
-.about-media:after{content:"";position:absolute;inset:14px;border:1px solid rgba(13,12,10,.35);pointer-events:none}
-.about h2{color:var(--bg-deep)}
-.about .eyebrow{color:var(--accent)}
-.about .eyebrow:before{color:var(--accent)}
-.about p{font-size:1.22rem;line-height:1.9;max-width:38rem;color:#2a251d}
-.about p+p{margin-top:26px}
-.about-credentials{margin-top:46px;display:flex;gap:48px;flex-wrap:wrap;border-top:1px solid rgba(13,12,10,.18);padding-top:32px}
-.about-credentials div{font:400 11px "Space Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#6b6250}
-.about-credentials strong{display:block;font:500 1rem Oswald,sans-serif;color:var(--bg-deep);text-transform:none;letter-spacing:0;margin-top:6px}
-
-/* ---------- contact ---------- */
-.contact{position:relative;text-align:left}
-.contact .wrap{display:flex;flex-direction:column;gap:50px}
-.contact a.mail{
-  font:600 clamp(2.1rem,7vw,5.2rem) Oswald,sans-serif;text-transform:uppercase;
-  border-bottom:2px solid var(--hairline);display:inline-block;padding-bottom:18px;
-  transition:border-color .6s ease,letter-spacing .6s ease;
-}
-.contact a.mail:hover{border-color:var(--gold);letter-spacing:.01em}
-.contact-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;color:var(--muted);font:300 1.05rem "Source Serif 4",serif}
-.contact-row .socials{display:flex;gap:28px;font:400 12px Oswald,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-.contact-row .socials a{border-bottom:1px solid transparent}
-.contact-row .socials a:hover{border-color:var(--gold);color:var(--gold)}
-
-footer{
-  padding:44px clamp(20px,4vw,56px);border-top:1px solid var(--hairline);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
-  color:var(--muted);font:400 11px "Space Mono",monospace;letter-spacing:.06em;text-transform:uppercase;
-}
-
-@media(max-width:900px){
-  nav{display:none}
-  .project,.project:nth-child(even){grid-template-columns:1fr}
-  .project:nth-child(even) .project-media,.project:nth-child(even) .project-body{order:initial}
-  .about .wrap{grid-template-columns:1fr}
-  .about-media{aspect-ratio:16/10}
-  section{padding:110px 0}
-  .grid{gap:90px}
-  h2{font-size:2.1rem}
-  .hero-timecode{display:none}
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101821">
+  <title>Yoann Casals — Film, motion & content</title>
+  <meta name="description" content="Yoann Casals creates film, motion, podcasts, voice and digital content. Based in the South of France and available remotely.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#reel">Skip to the work</a>
+  <header class="hero" id="top">
+    <nav class="navigation" aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span> YOANN CASALS<sup>®</sup></a>
+      <div class="nav-links">
+        <a href="#reel">Film</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="location">SOUTH OF FRANCE <span>·</span> AVAILABLE WORLDWIDE</p>
+    </nav>
 
-<div class="grain"></div>
+    <div class="hero-layout">
+      <p class="vertical-note">DIRECTOR / EDITOR / CREATIVE</p>
+      <div class="hero-copy">
+        <p class="eyebrow">INDEPENDENT CREATIVE PARTNER</p>
+        <h1>YOANN<br>CASALS</h1>
+        <p class="hero-intro">Film, motion, editing, podcast, voice and content.</p>
+        <a class="hero-link" href="#reel"><span aria-hidden="true">↘</span> SELECTED WORK</a>
+      </div>
+      <div class="hero-index" aria-hidden="true"><span>01</span><i></i><span>03</span></div>
+    </div>
+    <div class="hero-bottom"><span>YOU NEED A GUY FOR THAT.</span><span>CONTENT / STORIES / EXPERIENCES</span></div>
+  </header>
 
-<header>
-<div class="logo">Yoann Casals<span>Director</span></div>
-<nav>
-<a href="#work">Work</a>
-<a href="#about">About</a>
-<a href="#contact">Contact</a>
-</nav>
-</header>
+  <main>
+    <section class="reel section" id="reel" aria-labelledby="reel-title">
+      <div class="section-head">
+        <p class="eyebrow"><span class="number">01</span> SELECTED FILM</p>
+        <h2 id="reel-title">A few things<br>made to be seen.</h2>
+      </div>
+      <div class="player-shell">
+        <video class="reel-player" controls playsinline preload="none" poster="assets/hero-ranch.png" aria-label="Selected film reel">
+          <p>Your browser cannot play this video. <a href="mailto:yoanncasals@gmail.com">Ask Yoann for the reel.</a></p>
+        </video>
+        <span class="player-caption">DIRECTING / EDITING / CONTENT</span>
+      </div>
+    </section>
 
-<section class="hero">
-<video autoplay muted loop playsinline poster="https://images.pexels.com/videos/29070032/pexels-photo-29070032.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920">
-<source src="https://videos.pexels.com/video-files/29070032/12564314_1920_1080_50fps.mp4" type="video/mp4">
-</video>
+    <section class="clients section" id="clients" aria-labelledby="clients-title">
+      <div class="section-head compact-head">
+        <p class="eyebrow"><span class="number">02</span> SELECTED CLIENTS</p>
+        <h2 id="clients-title">Good company.</h2>
+      </div>
+      <ul class="client-list">
+        <li>FNAC</li><li>Audi</li><li>France Inter</li><li>Rosetta Stone</li>
+        <li>Fortnine</li><li>Metal Hurlant</li><li>Peugeot</li><li>Citroën</li>
+        <li>Royal Canin</li><li>Groupe AGPM</li><li>Mini</li><li>Alinea</li>
+      </ul>
+    </section>
 
-<div class="hero-timecode">REEL 01 — 00:00:14:22</div>
+    <section class="contact section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-intro">
+        <p class="eyebrow"><span class="number">03</span> START A PROJECT</p>
+        <h2 id="contact-title">Let’s make<br>something matter.</h2>
+        <p>Have an idea, a brief, or a problem that needs a film-shaped answer?</p>
+        <a class="email-link" href="mailto:yoanncasals@gmail.com">YOANN CASALS<br><span>yoanncasals@gmail.com</span></a>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <div class="field-pair">
+          <div class="field"><label for="name">YOUR NAME</label><input id="name" name="name" autocomplete="name" placeholder="Name" required></div>
+          <div class="field"><label for="email">YOUR EMAIL</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required></div>
+        </div>
+        <div class="field"><label for="message">A FEW WORDS ABOUT IT</label><textarea id="message" name="message" rows="4" placeholder="What are you working on?" required></textarea></div>
+        <button class="send-button" type="submit">OPEN EMAIL <span aria-hidden="true">↗</span></button>
+        <p class="form-note" id="form-note" role="status">Your email app will open with your message ready to send.</p>
+      </form>
+    </section>
+  </main>
 
-<div class="hero-content">
-<div class="kicker">Director · Journalist · Motion Designer</div>
-<h1 class="title">Yoann<br><em>Casals</em></h1>
-<div class="hero-foot">
-<p class="tag">Documentary storytelling, branded films and motion design built with the same patience as field reporting.</p>
-<div class="scroll-cue"><span class="line"></span>Scroll</div>
-</div>
-</div>
-</section>
-
-<section id="work">
-<div class="wrap">
-<div class="section-head reveal">
-<div>
-<div class="eyebrow">Selected Work</div>
-<h2>Films &amp; Studies</h2>
-</div>
-<p class="section-note">Three long-form documentaries shot on location, each built around observation rather than spectacle.</p>
-</div>
-
-<div class="grid">
-
-<article class="project reveal">
-<div class="project-media">
-<img src="https://images.unsplash.com/photo-1626906722163-bd4c03cb3b9b?auto=format&fit=crop&w=1400&q=80" alt="Farm worker in the field at golden hour">
-<span class="project-index">FILM — 01</span>
-</div>
-<div class="project-body">
-<span class="role">Documentary · 52 min</span>
-<h3>Groundwork</h3>
-<p>A branded documentary following agricultural workers across multiple regions with a focus on authentic observation rather than advertising.</p>
-</div>
-</article>
-
-<article class="project reveal">
-<div class="project-media">
-<img src="https://images.unsplash.com/photo-1781739848591-1896f351010c?auto=format&fit=crop&w=1400&q=80" alt="Cowboy and horse in a dusty rodeo arena">
-<span class="project-index">FILM — 02</span>
-</div>
-<div class="project-body">
-<span class="role">Documentary · 74 min</span>
-<h3>The Working Horse</h3>
-<p>A long-form documentary exploring western horsemanship, cattle work and the relationship between riders and their horses.</p>
-</div>
-</article>
-
-<article class="project reveal">
-<div class="project-media">
-<img src="https://images.unsplash.com/photo-1603126004372-e63e3b53934b?auto=format&fit=crop&w=1400&q=80" alt="Silhouette of performers on stage during a concert">
-<span class="project-index">FILM — 03</span>
-</div>
-<div class="project-body">
-<span class="role">Motion &amp; Live Visuals</span>
-<h3>Feedback Loop</h3>
-<p>Motion design, live visuals and concert films created for touring musicians and cultural institutions.</p>
-</div>
-</article>
-
-</div>
-</div>
-</section>
-
-<section class="about" id="about">
-<div class="wrap">
-<div class="about-media reveal">
-<img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80" alt="Clapperboard on location during a film shoot">
-</div>
-<div class="reveal">
-<div class="eyebrow">About</div>
-<h2>The Director</h2>
-<p>Yoann Casals is a French director, journalist and motion designer. His work combines documentary observation with cinematic aesthetics, creating films that privilege authenticity, patience and strong visual composition over spectacle.</p>
-<p>He works close to the ground — with ranchers, craftsmen, touring musicians and the landscapes that shape them — trading spectacle for the kind of patience field reporting demands.</p>
-<div class="about-credentials">
-<div>Based<strong>Marseille, France</strong></div>
-<div>Practice<strong>Documentary &amp; Branded Film</strong></div>
-<div>Since<strong>2014</strong></div>
-</div>
-</div>
-</div>
-</section>
-
-<section class="contact" id="contact">
-<div class="wrap">
-<div class="reveal">
-<div class="eyebrow">Contact</div>
-<h2 style="margin-bottom:36px">Let's Talk</h2>
-<a class="mail" href="mailto:hello@yoanncasals.com">hello@yoanncasals.com</a>
-</div>
-<div class="contact-row reveal">
-<p>Available for documentary and branded commissions worldwide.</p>
-<div class="socials">
-<a href="#">Instagram</a>
-<a href="#">Vimeo</a>
-<a href="#">LinkedIn</a>
-</div>
-</div>
-</div>
-</section>
-
-<footer>
-<div>© 2026 Yoann Casals</div>
-<div>Marseille · France</div>
-</footer>
-
-<script>
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('is-in'); observer.unobserve(e.target); }
-  });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-const heroVideo = document.querySelector('.hero video');
-window.addEventListener('scroll', ()=>{
-  const y = window.scrollY;
-  if(heroVideo) heroVideo.style.transform = `scale(${1.02 + y*0.0002}) translateY(${y*0.12}px)`;
-}, {passive:true});
-</script>
-
+  <footer class="footer"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span> YOANN CASALS<sup>®</sup></a><span>© 2026 YOANN CASALS</span><a href="mailto:yoanncasals@gmail.com">SAY HELLO ↗</a></footer>
 </body>
 </html>
