@@ -21,3 +21,8 @@ The supplied 1080p showreel is included as `showreel-homepage.mp4` and plays in 
 ## Contact form
 
 The short contact form validates name, email and message, then opens the visitor's email app with a message addressed to `yoanncasals@gmail.com`. The visitor sends it from their own mail app; GitHub Pages does not receive or store form submissions.
+
+
+## Visual theme
+
+The site uses the supplied Noir Ember Crown palette: black (`#000000`), deep umber (`#1a120f`), antique gold (`#b7791f`) and ember (`#f6ad55`). A subtle static grain texture covers the page without blocking clicks.
