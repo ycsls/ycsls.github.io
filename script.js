@@ -1,6 +1,4 @@
 'use strict';
-const form = document.querySelector('#contact-form');
-
 const heroBackground = document.querySelector('.hero-background');
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (heroBackground) {
@@ -14,15 +12,6 @@ if (heroBackground) {
   syncHeroPlayback();
   motionPreference.addEventListener('change', syncHeroPlayback);
 }
-
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (!form.reportValidity()) return;
-  const data = new FormData(form);
-  const subject = `Project enquiry from ${data.get('name')}`;
-  const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\n${data.get('message')}`;
-  window.location.href = `mailto:yoanncasals@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
 
 const player = document.querySelector('.reel-player');
 // The showreel starts only while visible and motion is allowed.
