@@ -18,3 +18,7 @@ body::after{content:"";position:fixed;inset:0;z-index:1000;pointer-events:none;o
 /* The clients heading echoes the hero title while staying legible on white. */
 .clients .compact-head{display:flex;flex-direction:column;align-items:flex-start;gap:24px}.clients .compact-head .eyebrow{padding-top:0}.clients .compact-head h2{font-size:clamp(36px,5vw,68px);font-weight:800;letter-spacing:-.055em;line-height:.93;text-transform:uppercase;color:var(--gold);margin:0;text-align:left}
 @media(max-width:480px){.clients .compact-head h2{font-size:clamp(23px,7vw,32px);line-height:.98}}
+
+
+/* Client section colors restored; keep title type and add a barely visible grain layer. */
+.clients{position:relative;isolation:isolate;background:#1a120f;color:var(--ink)}.clients .number{color:var(--ember)}.clients .compact-head h2{color:var(--ink)}.clients .client-list{border-top-color:#5b493b}.clients .client-list li{color:var(--ink);border-bottom-color:#5b493b}.clients>*{position:relative;z-index:1}.clients::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.09;background:url("film-grain.svg") repeat;background-size:160px 160px;mix-blend-mode:soft-light}
