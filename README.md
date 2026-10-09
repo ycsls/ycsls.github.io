@@ -30,3 +30,8 @@ The “Nous écrire” button opens the visitor's email app addressed to `yoannc
 ## Visual theme
 
 The site uses the supplied Noir Ember Crown palette: black (`#000000`), deep umber (`#1a120f`), antique gold (`#b7791f`) and ember (`#f6ad55`). A subtle static grain texture covers the page without blocking clicks.
+
+
+## Clients and specialties
+
+The Clients section uses `specialty-placeholders.png` as an eight-frame local image atlas. Hover, keyboard focus, or tapping a specialty previews its corresponding placeholder. Replace the atlas with project photography when ready, keeping its 4-column by 2-row frame arrangement.

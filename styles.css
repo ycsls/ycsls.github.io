@@ -22,3 +22,27 @@ body::after{content:"";position:fixed;inset:0;z-index:1000;pointer-events:none;o
 
 /* Client section colors restored; keep title type and add a barely visible grain layer. */
 .clients{position:relative;isolation:isolate;background:#1a120f;color:var(--ink)}.clients .number{color:var(--ember)}.clients .compact-head h2{color:var(--ember)}.clients .client-list{border-top-color:#5b493b}.clients .client-list li{color:var(--ink);border-bottom-color:#5b493b}.clients>*{position:relative;z-index:1}.clients::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.09;background:url("film-grain.svg") repeat;background-size:160px 160px;mix-blend-mode:soft-light}
+
+
+/* Clients + specialties image-hover section. */
+.clients{position:relative;isolation:isolate;overflow:hidden;background:#1a120f;color:var(--ink)}
+.clients-column--specialties>.clients-background{position:absolute;inset:0;z-index:-2;background-image:url("specialty-placeholders.png");background-size:400% 200%;background-position:0% 0%;background-repeat:no-repeat;opacity:.95;transition:background-position .65s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.clients::before{content:none}.clients-column--specialties::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(120deg,rgba(26,18,15,.78),rgba(26,18,15,.55))}
+.clients>.clients-columns{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:stretch;gap:clamp(40px,7vw,112px)}
+.clients-column{min-width:0}
+.clients-column--specialties{position:relative;isolation:isolate;overflow:hidden;padding:clamp(24px,3vw,42px)}
+.clients-column--specialties .specialties-label,.clients-column--specialties .specialty-list{position:relative;z-index:1}
+.clients .compact-head{display:flex;flex-direction:column;align-items:flex-start;gap:24px;margin-bottom:40px}
+.clients .compact-head .eyebrow{padding-top:0}
+.clients .compact-head h2{font-size:clamp(36px,5vw,68px);font-weight:800;letter-spacing:-.055em;line-height:.93;text-transform:uppercase;color:var(--ember);margin:0;text-align:left}
+.clients .client-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;border-top:1px solid #f5efe640}
+.clients .client-list li{padding:16px 8px 16px 0;border-bottom:1px solid #f5efe640;color:var(--ink);font-size:clamp(17px,1.45vw,22px)}
+.specialties-label{margin:0 0 24px;color:var(--ember)}
+.specialty-list{list-style:none;margin:0;padding:0;border-top:1px solid #f5efe640}
+.specialty-button{width:100%;display:flex;align-items:center;justify-content:space-between;border:0;border-bottom:1px solid #f5efe640;padding:13px 0;background:transparent;color:var(--ink);font:500 clamp(18px,1.6vw,24px)/1.2 Arial,Helvetica,sans-serif;text-align:left;cursor:pointer;transition:color .2s ease,padding .2s ease}
+.specialty-button::after{content:"↗";font-size:.8em;color:var(--ember);opacity:0;transform:translate(-8px,4px);transition:opacity .2s ease,transform .2s ease}
+.specialty-button:hover,.specialty-button:focus-visible,.specialty-button[aria-pressed="true"]{color:var(--ember);padding-left:8px}
+.specialty-button:hover::after,.specialty-button:focus-visible::after,.specialty-button[aria-pressed="true"]::after{opacity:1;transform:translate(0,0)}
+@media(max-width:760px){.clients>.clients-columns{grid-template-columns:1fr;gap:42px}.clients-column--specialties{padding:26px 22px}.clients .compact-head{margin-bottom:28px}.clients .compact-head h2{font-size:clamp(32px,7vw,48px)}.clients .client-list{grid-template-columns:repeat(2,minmax(0,1fr))}.specialties-label{margin-bottom:18px}.specialty-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}.specialty-button{font-size:18px}}
+@media(max-width:480px){.clients>.clients-columns{gap:34px}.clients-column--specialties{padding:22px 16px}.clients .client-list li{font-size:16px;padding-block:14px}.specialty-list{column-gap:18px}.specialty-button{font-size:16px;padding-block:12px}}
+@media(prefers-reduced-motion:reduce){.clients-column--specialties>.clients-background,.specialty-button,.specialty-button::after{transition:none}}

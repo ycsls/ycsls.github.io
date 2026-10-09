@@ -39,3 +39,21 @@ motionPreference.addEventListener('change', () => {
   player.loop = !motionPreference.matches;
   syncReelPlayback();
 });
+
+
+// Preview a local placeholder image for each specialty on hover, focus, or tap.
+const clientsBackground = document.querySelector('.clients-background');
+const specialtyButtons = [...document.querySelectorAll('.specialty-button')];
+if (clientsBackground && specialtyButtons.length) {
+  const selectSpecialty = (button) => {
+    clientsBackground.style.backgroundPosition = button.dataset.position;
+    for (const item of specialtyButtons) {
+      item.setAttribute('aria-pressed', String(item === button));
+    }
+  };
+  for (const button of specialtyButtons) {
+    button.addEventListener('pointerenter', () => selectSpecialty(button));
+    button.addEventListener('focus', () => selectSpecialty(button));
+    button.addEventListener('click', () => selectSpecialty(button));
+  }
+}

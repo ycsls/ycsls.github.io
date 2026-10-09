@@ -40,15 +40,33 @@
 
   <main>
     <section class="clients section" id="clients" aria-labelledby="clients-title">
-      <div class="section-head compact-head">
-        <p class="eyebrow"><span class="number">02</span> CLIENTS</p>
-        <h2 id="clients-title">En bonne compagnie</h2>
+      <div class="clients-columns">
+        <div class="clients-column clients-column--names">
+          <div class="section-head compact-head">
+            <p class="eyebrow"><span class="number">02</span> CLIENTS</p>
+            <h2 id="clients-title">En bonne compagnie</h2>
+          </div>
+          <ul class="client-list">
+            <li>FNAC</li><li>Audi</li><li>France Inter</li><li>Rosetta Stone</li>
+            <li>Fortnine</li><li>Metal Hurlant</li><li>Peugeot</li><li>Citroën</li>
+            <li>Royal Canin</li><li>Groupe AGPM</li><li>Mini</li><li>Alinea</li>
+          </ul>
+        </div>
+        <div class="clients-column clients-column--specialties">
+          <div class="clients-background" aria-hidden="true"></div>
+          <p class="eyebrow specialties-label" id="specialties-title">SPÉCIALITÉS</p>
+          <ul class="specialty-list" aria-labelledby="specialties-title">
+            <li><button class="specialty-button" type="button" data-position="0% 0%" aria-pressed="true">Film</button></li>
+            <li><button class="specialty-button" type="button" data-position="33.333% 0%" aria-pressed="false">TV Commercials</button></li>
+            <li><button class="specialty-button" type="button" data-position="66.667% 0%" aria-pressed="false">Documentary</button></li>
+            <li><button class="specialty-button" type="button" data-position="100% 0%" aria-pressed="false">Animation</button></li>
+            <li><button class="specialty-button" type="button" data-position="0% 100%" aria-pressed="false">Podcast</button></li>
+            <li><button class="specialty-button" type="button" data-position="33.333% 100%" aria-pressed="false">Interviews</button></li>
+            <li><button class="specialty-button" type="button" data-position="66.667% 100%" aria-pressed="false">Social media</button></li>
+            <li><button class="specialty-button" type="button" data-position="100% 100%" aria-pressed="false">Corporate</button></li>
+          </ul>
+        </div>
       </div>
-      <ul class="client-list">
-        <li>FNAC</li><li>Audi</li><li>France Inter</li><li>Rosetta Stone</li>
-        <li>Fortnine</li><li>Metal Hurlant</li><li>Peugeot</li><li>Citroën</li>
-        <li>Royal Canin</li><li>Groupe AGPM</li><li>Mini</li><li>Alinea</li>
-      </ul>
     </section>
 
     <section class="reel section" id="reel" aria-label="Bande-démo vidéo">
